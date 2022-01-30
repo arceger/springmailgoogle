@@ -1,0 +1,53 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pr-BR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <title>Seus Dados</title>
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="css/signin.css" rel="stylesheet">
+  </head>
+  <body class="text-center">
+    
+  <main class="form-signin">
+  <form th:action="@{/processa_registro}" method="post" th:object="${user}">
+   
+    <h1 class="h3 mb-3 fw-normal">Register</h1>
+
+    <div class="form-floating">
+      <input type="email" class="form-control" id="floatingInput" th:field = "*{email}" required maxlength="35">
+      <label for="floatingInput">Seu Email</label>
+    </div>
+    <div class="checkbox mb-3">
+    </div>
+    <div class="form-floating">
+        <input type="text" class="form-control" id="floatingInput" th:field = "*{firstName}" required maxlength="25">
+        <label for="floatingInput">First Name</label>
+      </div>
+      <div class="checkbox mb-3">
+      </div>
+      <div class="form-floating">
+        <input type="text" class="form-control" id="floatingInput" th:field = "*{lastName}" required maxlength="25">
+        <label for="floatingInput">Last Name</label>
+      </div>
+      <div class="checkbox mb-3">
+      </div>
+
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" th:field = "*{password}" required maxlength="15">
+      <label for="floatingPassword">Sua Senha</label>
+    </div>
+
+    
+    <button class="w-100 btn btn-lg btn-primary" type="submit">Registrar</button>
+    
+  </form>
+</main>
+
+
+    
+  </body>
+</html>
