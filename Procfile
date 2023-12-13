@@ -1,0 +1,1 @@
+web: java -jar src/main/java/com/javaweb/JavawebApplication.jar
