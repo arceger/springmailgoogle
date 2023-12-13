@@ -62,9 +62,5 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		.usernameParameter("email")
 		.defaultSuccessUrl("/ordersrv")
 		.permitAll();
-		
-		
-	
-	
 	}
 }
