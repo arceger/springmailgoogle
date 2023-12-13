@@ -24,30 +24,66 @@
     <div class="checkbox mb-3">
     </div>
     <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" th:field = "*{firstName}" required maxlength="25">
-        <label for="floatingInput">First Name</label>
+        <input type="text" class="form-control" id="floatingInput" th:field = "*{name}" required maxlength="25">
+        <label for="floatingInput">Nome Completo</label>
       </div>
       <div class="checkbox mb-3">
       </div>
       <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" th:field = "*{lastName}" required maxlength="25">
-        <label for="floatingInput">Last Name</label>
+        <input type="text" class="form-control" id="floatingInput" th:field = "*{endereco}" required maxlength="25">
+        <label for="floatingInput">Endereço</label>
       </div>
       <div class="checkbox mb-3">
       </div>
 
+
     <div class="form-floating">
-      <input type="password" class="form-control" id="floatingPassword" th:field = "*{password}" required maxlength="15">
+      <input type="text" class="form-control" id="floatingInput" th:field = "*{city}" required maxlength="25">
+      <label for="floatingInput">Cidade</label>
+    </div>
+    <div class="checkbox mb-3">
+    </div>
+
+    <div class="form-floating">
+      <select class="form-control" id="role" th:field="*{role}" required>
+        <option value="">Selecione um papel</option>
+        <option value="adm">Adm</option>
+        <option value="tec">Tecnico</option>
+      </select>
+      <label for="role">Role</label>
+    </div>
+    <div class="checkbox mb-3">
+    </div>
+
+    <div class="form-floating">
+      <input type="password" class="form-control" id="floatingPassword" th:field="*{password}" required maxlength="15">
       <label for="floatingPassword">Sua Senha</label>
     </div>
 
-    
+    <div class="form-floating">
+      <input type="password" class="form-control" id="confirmPassword" name="confirmPassword" required maxlength="15">
+      <label for="confirmPassword">Confirme Sua Senha</label>
+    </div>
+
+
+
     <button class="w-100 btn btn-lg btn-primary" type="submit">Registrar</button>
     
   </form>
 </main>
 
+  <script>
+    document.getElementById('confirmPassword').addEventListener('input', function () {
+        var password = document.getElementById('floatingPassword').value;
+        var confirmPassword = this.value;
 
+        if (password !== confirmPassword) {
+            this.setCustomValidity('As senhas não coincidem.');
+        } else {
+            this.setCustomValidity('');
+        }
+    });
+  </script>
     
   </body>
 </html>

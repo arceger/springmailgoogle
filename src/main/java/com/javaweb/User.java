@@ -17,13 +17,18 @@ public class User {
 	private String email;
 	
 	@Column (nullable = false, length=30)
-	private String firstName;
+	private String name;
 	
 	@Column (nullable = false, length=20)
-	private String lastName;
+	private String role;
 	
 	@Column (nullable = false, length=70)
 	private String password;
+
+    @Column (nullable = true, length=200)
+    private String endereco;
+    @Column (nullable = true, length=100)
+    private String city;
 	
 	public Long getId() {
 		return id;
@@ -38,16 +43,16 @@ public class User {
 		this.email = email;
 	}
 	public String getFirstName() {
-		return firstName;
+		return name;
 	}
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		this.name = name;
 	}
-	public String getLastName() {
-		return lastName;
+	public String getRole() {
+		return role;
 	}
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setRole(String role) {
+		this.role = role;
 	}
 	public String getPassword() {
 		return password;
@@ -56,4 +61,27 @@ public class User {
 		this.password = password;
 	}
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
 }

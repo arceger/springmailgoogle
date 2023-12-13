@@ -29,7 +29,7 @@ public class AppController {
 	}
 	
 	
-	  @GetMapping("/list_user")
+	  @GetMapping("/ordersrv")
 	  public String viewUsersList(Model model) {
 		  List<User> listUsers = repo.findAll();
 		  model.addAttribute("listUsers", listUsers);
@@ -55,7 +55,7 @@ public class AppController {
 		repo.save(user);
 		
 		String usrMail = user.getEmail();
-		String usrName = user.getFirstName();
+		String usrName = user.getName();
 		emailSender.sendMail(usrMail, "Sejas bem Vindo "+usrName, "Confirmaçao de Registro Spring Boot");
 		
 		return "sucess";

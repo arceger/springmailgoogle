@@ -29,9 +29,11 @@
     <thead class="thead-dark">
     <tr>
     <th>ID USER</th>
-    <th>E-MAIL</th>
-    <th>NOME</th>
-    <th>SOBRE NOME</th>
+    <th>E-mail</th>
+    <th>Nome Completo</th>
+    <th>Endereco</th>
+      <th>Cidade</th>
+      <th>Role</th>
     </tr>
     </thead>
     
@@ -41,8 +43,10 @@
     <tr th:each="user: ${listUsers}">
     <td th:text="${user.id}"></td>
     <td th:text="${user.email}"></td>
-    <td th:text="${user.firstName}"></td>
-    <td th:text="${user.lastName}"></td>
+    <td th:text="${user.name}"></td>
+    <td th:text="${user.endereco}"></td>
+      <td th:text="${user.city}"></td>
+      <td th:text="${user.role}"></td>
     </tr>
     </table>
     
