@@ -1,37 +1,60 @@
-<!doctype html>
-<html xmlns:th="http://www.thymeleaf.org" lang="pr-BR">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <title>Registrado</title>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Página de Erro</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            color: #495057;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+        .error-container {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #ffffff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
 
-    <link href="css/signin.css" rel="stylesheet">
-  </head>
-  <body class="text-center">
-    
-  <main class="form-signin">
+        .error-code {
+            font-size: 72px;
+            color: #dc3545;
+            margin-bottom: 10px;
+        }
 
-   
-    <h1 class="h3 mb-3 fw-normal">Registrado com Sucesso</h1>
+        .error-message {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
 
-    <div class="form-floating">
-     
+        .back-link {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            border-bottom: 2px solid transparent;
+            transition: border-bottom-color 0.3s ease-in-out;
+        }
+
+        .back-link:hover {
+            border-bottom-color: #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="error-container">
+        <div class="error-code"></div>
+        <div class="error-message">Cadastro Realizado com Sucesso</div>
+        <p>Voce ja pode acessar os Serviços!</p>
+        <p><a href="/" class="back-link">Voltar para a página inicial</a></p>
     </div>
-    <div class="checkbox mb-3">
-    </div>
-    <div class="form-floating">
-     
-    </div>
-
-   
-    <a class="w-100 btn btn-lg btn-primary" th:href="@{/login}">Ir Para pagina de Login</a>
- 
-</main>
-
-
-    
-  </body>
+</body>
 </html>

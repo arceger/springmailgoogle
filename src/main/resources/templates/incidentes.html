@@ -1,0 +1,131 @@
+<!doctype html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pr-BR">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <title>Abertura Incidente</title>
+
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+
+  <link href="css/signin.css" rel="stylesheet">
+</head>
+
+<body class="text-center">
+
+  <main class="form-signin">
+    <form th:action="@{/processa_incidente}" method="post" th:object="${orders}">
+
+      <h1 class="h3 mb-3 fw-normal">Registra Incidente.</h1>
+
+      <div class="form-floating">
+        <input type="text" class="form-control" id="floatingInput" th:field="*{cliente}" required maxlength="35">
+        <label for="floatingInput">Nome do Cliente:</label>
+      </div>
+      <div class="checkbox mb-3">
+      </div>
+      <div class="form-floating">
+        <input type="text" class="form-control" id="floatingInput" th:field="*{contato}" required maxlength="25">
+        <label for="floatingInput">Email e Telefone:</label>
+      </div>
+      <div class="checkbox mb-3">
+      </div>
+      <div class="form-floating">
+        <input type="text" class="form-control" id="floatingInput" placeholder="Tipo e Modelo" th:field="*{equipamento}" required maxlength="25">
+        <label for="floatingInput">Equipamento:</label>
+      </div>
+      <div class="checkbox mb-3">
+      </div>
+      <div class="form-floating">
+        <input type="text" class="form-control" id="floatingInput" th:field="*{serie}" required maxlength="25">
+        <label for="floatingInput">Serie:</label>
+      </div>
+      <div class="checkbox mb-3">
+      </div>
+      <div class="form-floating" hidden>
+        <input type="text" class="form-control" id="abertura" th:field="*{abertura}" readonly required maxlength="20"
+               th:value="${#dates.format(#dates.createNow(), 'dd/MM/yyyy HH:mm:ss')}">
+        <label for="abertura">Data Abertura</label>
+      </div>
+      <div class="checkbox mb-3">
+      </div>
+
+
+      <div class="form-floating">
+        <select class="form-control" id="status" th:field="*{status}" required>
+          <option value="">Selecione</option>
+          <option value="OPEN">OPEN</option>
+          <option value="ALOCADO">ALOCADO</option>
+          <option value="DESLOCAMENTO">DESLOCAMENTO</option>
+          <option value="ONSITE">ONSITE</option>
+          <option value="PENDENTE">PENDENTE</option>
+          <option value="CLIENTE">CLIENTE</option>
+          <option value="SOLUCIONADO">SOLUCIONADO</option>
+          <option value="CANCELADO">CANCELADO</option>
+        </select>
+        <label for="status">Status:</label>
+      </div>
+      <div class="checkbox mb-3">
+      </div>
+
+
+      <div class="form-floating">
+        <input type="number" class="form-control" placeholder="horas contratadas" id="floatingInput" th:field="*{sla}" required
+          maxlength="15">
+        <label for="floatingPassword">SLA:</label>
+      </div>
+      <div class="checkbox mb-3">
+      </div>
+
+      <div class="form-floating">
+        <input type="text" class="form-control" id="floatingPassword" th:field="*{defeito}" required
+               maxlength="1000">
+        <label for="floatingPassword">Defeito:</label>
+      </div>
+      <div class="checkbox mb-3">
+      </div>
+
+      <div class="form-floating">
+        <input type="text" class="form-control" id="floatingPassword" th:field="*{endereco}" required
+               maxlength="200">
+        <label for="floatingPassword">Endereço:</label>
+      </div>
+      <div class="checkbox mb-3">
+      </div>
+
+      <div class="form-floating">
+        <input type="text" class="form-control" id="floatingInput" th:field="*{city}" required
+               maxlength="30">
+        <label for="floatingPassword">Cidade:</label>
+      </div>
+      <div class="checkbox mb-3">
+      </div>
+
+      <div class="form-floating">
+        <input type="number" class="form-control" id="floatingInput" th:field="*{cep}" required
+               maxlength="10">
+        <label for="floatingPassword">Cep:</label>
+      </div>
+      <div class="checkbox mb-3">
+      </div>
+
+      <div class="form-floating">
+        <select class="form-control" id="tecnico" name="tecnico" th:field="*{tecnico}">
+          <option value="">Alocar Técnico?</option>
+          <option th:each="tec: ${listTec}" th:value="${tec.name}" th:text="${tec.name}"></option>
+        </select>
+        <label for="tecnico">Técnico:</label>
+      </div>
+      <div class="checkbox mb-3">
+      </div>
+
+
+      <button class="w-100 btn btn-lg btn-primary" type="submit">Registrar</button>
+
+    </form>
+  </main>
+
+</body>
+
+</html>

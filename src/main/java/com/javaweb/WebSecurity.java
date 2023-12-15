@@ -52,7 +52,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 	
 		http.authorizeRequests()
-		.antMatchers("/ordersrv").authenticated()
+		.antMatchers("/orderlist").authenticated()
 		.anyRequest().permitAll()
 		.and()
 		.formLogin()
@@ -60,7 +60,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		//.loginPage("/login")
 	   // .loginProcessingUrl("/login")
 		.usernameParameter("email")
-		.defaultSuccessUrl("/ordersrv")
+		.defaultSuccessUrl("/orderlist")
 		.permitAll();
 	}
 }
