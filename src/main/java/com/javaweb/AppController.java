@@ -12,10 +12,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class AppController {
@@ -51,22 +48,6 @@ public class AppController {
 
 		return "register";
 	}
-//
-//	@PostMapping("/processa_registro")
-//	public String processRegistration(User user) {
-//
-//		BCryptPasswordEncoder code = new BCryptPasswordEncoder();
-//		String encoPass = code.encode(user.getPassword());
-//		user.setPassword(encoPass);
-//		repo.save(user);
-//
-//
-////		String usrMail = user.getEmail();
-////		String usrName = user.getName();
-////		emailSender.sendMail(usrMail, "Sejas bem Vindo "+usrName, "Confirmaçao de Registro Spring Boot");
-////
-//		return "sucess";
-//	}
 
 	@PostMapping("/processa_registro")
 	public String processRegistration(User user) {
@@ -92,11 +73,6 @@ public class AppController {
 		}
 	}
 
-
-
-
-
-
 	@GetMapping("/userlist")  // listar todos os usuarios
 	public String viewUsersList(Model model) {
 		List<User> listUsers = repo.findAll();
@@ -104,7 +80,7 @@ public class AppController {
 		return "users";
 	}
 
-	@GetMapping("/teclist")  // listar todos os usuários
+	@GetMapping("/teclist")  // listar todos os tecnicos
 	public String viewTecList(Model model) {
 		List<User> listUsers = repo.findByRole("tec");
 		model.addAttribute("listUsers", listUsers);
@@ -120,14 +96,6 @@ public class AppController {
 		return "incidentes";
 	}
 
-	/*
-	 model.addAttribute("orders", new Orders());
-        List<User> tecnicos = customUserDetailsService.listarTecnicos();
-        model.addAttribute("tecnicos", tecnicos);
-        return "incidentes";
-	 */
-
-
 	@PostMapping("/processa_incidente")
 	public String procesaIncidente(Orders orders) {
 
@@ -142,12 +110,22 @@ public class AppController {
 	  }
 
 
-	@GetMapping("/orderlist") // listar os incidentes
+	@GetMapping("/orderlist") // listar todos os incidentes
 	public String viewOrderList(Model model) {
 		List<Orders> listOrder = repoOrder.findAll();
 		model.addAttribute("listOrder", listOrder);
 		return "orderlist";
 	}
+
+
+	@GetMapping("/listcall/{orderId}")
+	public String viewOrderCall(@PathVariable Long orderId, Model model) {
+		Orders order = repoOrder.findById(orderId);
+		model.addAttribute("listCall", order);
+		return "orderCall";
+	}
+
+
 
 
 

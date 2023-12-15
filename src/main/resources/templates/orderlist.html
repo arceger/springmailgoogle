@@ -43,7 +43,7 @@
     </tbody>
       <tr th:each="order: ${listOrder}">
         <td>
-          <a th:href="'/sua-rota/' + ${order.id}">
+          <a th:href="'/listcall/' + ${order.id}">
             CALL<span th:text="${order.id}"></span>
           </a>
         </td>

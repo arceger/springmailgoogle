@@ -9,4 +9,7 @@ public interface OrderRepo extends JpaRepository<Orders,String> {
     @Query("SELECT u FROM Orders u WHERE u.equipamento = ?1")
     Orders findBySerie(String serie);
 
+    @Query("SELECT u FROM Orders u WHERE u.id = ?1")
+    Orders findById(Long id);
+
 }
