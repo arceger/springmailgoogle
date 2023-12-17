@@ -1,15 +1,15 @@
-<!doctype html>
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="pr-BR">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="">
-  <title>Abertura Incidente</title>
+  <title>Detalhe do Incidente</title>
 
-  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 
-  <link href="css/signin.css" rel="stylesheet">
 </head>
 
 <body class="text-center">
@@ -20,96 +20,135 @@
 
       <h1 class="h3 mb-3 fw-normal">Detalhe Incidente.</h1>
 
-      <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" th:text="${order.cliente}" maxlength="35">
-        <label for="floatingInput">Nome do Cliente:</label>
-      </div>
-      <div class="checkbox mb-3">
-      </div>
-      <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" th:text="${order.contato}" maxlength="25">
-        <label for="floatingInput">Email e Telefone:</label>
-      </div>
-      <div class="checkbox mb-3">
-      </div>
-      <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" placeholder="Tipo e Modelo" th:text="${order.equipamento}" maxlength="25">
-        <label for="floatingInput">Equipamento:</label>
-      </div>
-      <div class="checkbox mb-3">
-      </div>
+      <div class="row">
 
-      <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" th:text="${order.serie}" maxlength="25">
-        <label for="floatingInput">Serie:</label>
-      </div>
+        <div class="col-md-6">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="cliente" th:value="${order.cliente}" maxlength="35" readonly>
+            <label for="cliente">Nome do Cliente:</label>
+          </div>
+        </div>
 
-      <div class="checkbox mb-3"> 
-      </div>
+        <div class="col-md-6">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="contato" th:value="${order.contato}" maxlength="25" readonly>
+            <label for="contato">Email e Telefone:</label>
+          </div>
+        </div>
+        <div class="checkbox mb-3">
+        </div>
+        <div class="col-md-6">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="equipamento" th:value="${order.equipamento}" maxlength="25" readonly>
+            <label for="contato">Equipamento:</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="serie" th:value="${order.serie}" maxlength="25" readonly>
+            <label for="contato">Serie:</label>
+          </div>
+        </div>
+        <div class="checkbox mb-3">
+        </div>
+        <div class="col-md-6">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="abertura" th:value="${order.abertura}" maxlength="25" readonly>
+            <label for="contato">Abertura:</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="city" th:value="${order.city}" maxlength="50" readonly>
+            <label for="contato">City:</label>
+          </div>
+        </div>
+        <div class="checkbox mb-3">
+        </div>
+        <div class="col-md-6">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="sla" th:value="${order.sla}" maxlength="25" readonly>
+            <label for="contato">Sla:</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="endereco" th:value="${order.endereco}" maxlength="1000" readonly>
+            <label for="contato">Endereco:</label>
+          </div>
+        </div>
+        <div class="checkbox mb-3">
+        </div>
+        <div class="checkbox mb-3">
+        </div>
+        <div class="col-md-6">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="cep" th:value="${order.cep}" maxlength="50" readonly>
+            <label for="contato">Cep:</label>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="tecnico" th:value="${order.tecnico}" maxlength="50" readonly>
+            <label for="contato">Tecnico:</label>
+          </div>
+        </div>
+        <div class="checkbox mb-3">
+        </div>
+        <div class="col-md-12">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="defeito" th:value="${order.defeito}" maxlength="1000" readonly>
+            <label for="contato">Defeito:</label>
+          </div>
+        </div>
+        <div class="checkbox mb-3">
+        </div>
+        <div class="col-md-12">
+          <div class="form-floating">
+            <input type="text" class="form-control" id="providencias" maxlength="1000">
+            <label for="contato">Providencias adotadas:</label>
+          </div>
+        </div>
+        <div class="checkbox mb-3">
+        </div>
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-floating">
+              <!--input type="text" class="form-control" id="status" th:value="${order.status}" maxlength="25"-->
+              <select class="form-control" id="status" th:value="${order.status}" required>
+                <option value="">Selecione</option>
+                <option value="OPEN">OPEN</option>
+                <option value="ALOCADO">ALOCADO</option>
+                <option value="DESLOCAMENTO">DESLOCAMENTO</option>
+                <option value="ONSITE">ONSITE</option>
+                <option value="PENDENTE">PENDENTE</option>
+                <option value="CLIENTE">CLIENTE</option>
+                <option value="SOLUCIONADO">SOLUCIONADO</option>
+                <option value="CANCELADO">CANCELADO</option>
+              </select>
+              <label for="contato">Status:</label>
+            </div>
+          </div>
+          <div class="col-md-6 d-flex align-items-center">
+            <button class="w-100 btn btn-lg btn-primary" onclick="concatenateFields()">Atualizar</button>
+          </div>
+        </div>
+        <div class="checkbox mb-3">
+        </div>
+        <script>
+          function concatenateFields() {
+            // Obtenha os valores dos campos
+            var defeitoValue = document.getElementById('defeito').value;
+            var providenciasValue = document.getElementById('providencias').value;
 
-      <div class="form-floating">
-        <input type="text" class="form-control" id="abertura" th:text="${order.abertura}" maxlength="25">
-        <label for="floatingInput">Data Abertura:</label>
-      </div>
-      <div class="checkbox mb-3">
-      </div>
-      
+            // Concatene os valores
+            var concatenatedValue = defeitoValue + ' ' + providenciasValue;
 
-      <div class="form-floating">
-        <input type="text" class="form-control" id="status" th:text="${order.status}" maxlength="25">
-        <label for="floatingInput">Status:</label>
+            // Atualize o valor do campo defeito
+            document.getElementById('defeito').value = concatenatedValue;
+          }
+        </script>
       </div>
-      <div class="checkbox mb-3">
-      </div>
-
-
-      <div class="form-floating">
-        <input type="number" class="form-control" placeholder="horas contratadas" id="floatingInput" th:text="${order.sla}"
-          maxlength="15">
-        <label for="floatingPassword">SLA:</label>
-      </div>
-      <div class="checkbox mb-3">
-      </div>
-
-      <div class="form-floating">
-        <input type="text" class="form-control" id="floatingPassword" th:text="${order.defeito}" 
-               maxlength="1000">
-        <label for="floatingPassword">Defeito:</label>
-      </div>
-      <div class="checkbox mb-3">
-      </div>
-
-      <div class="form-floating">
-        <input type="text" class="form-control" id="floatingPassword" th:text="${order.endereco}" 
-               maxlength="200">
-        <label for="floatingPassword">Endereço:</label>
-      </div>
-      <div class="checkbox mb-3">
-      </div>
-
-      <div class="form-floating">
-        <input type="text" class="form-control" id="floatingInput" th:text="${order.city}" 
-               maxlength="30">
-        <label for="floatingPassword">Cidade:</label>
-      </div>
-      <div class="checkbox mb-3">
-      </div>
-
-      <div class="form-floating">
-        <input type="number" class="form-control" id="floatingInput" th:text="${order.cep}" 
-               maxlength="10">
-        <label for="floatingPassword">Cep:</label>
-      </div>
-      <div class="checkbox mb-3">
-      </div>
-
-      <div class="form-floating">
-        <input type="text" class="form-control" id="tecnico" name="tecnico" th:text="${order.tecnico}" maxlength="100">
-        <label for="floatingPassword">Tecnico:</label>
-      </div>
-      <div class="checkbox mb-3">
-      </div>
-
     </form>
   </main>
 

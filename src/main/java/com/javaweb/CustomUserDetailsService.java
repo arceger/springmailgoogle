@@ -11,24 +11,36 @@ public class CustomUserDetailsService implements UserDetailsService {
 	@Autowired
 	private UserRepository repo;
 
+//	@Override
+//	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+//
+//
+//		User user = repo.findByEmail(email);
+//		if (user != null) {
+//			return new CustomUserDetails(user);
+//		}
+//
+//
+//		User tecnico = (User) repo.findByRole("tecnico");
+//		if (tecnico == null) {
+//			throw new UsernameNotFoundException("tecnico nao encontrado");
+//		}
+//
+//		return new CustomUserDetails(tecnico);
+//
+//
+//	}
+
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-
 		User user = repo.findByEmail(email);
-		if (user != null) {
-			return new CustomUserDetails(user);
+		if (user == null) {
+			throw new UsernameNotFoundException("usuario nao encontrado");
 		}
 
-		User tecnico = (User) repo.findByRole("tecnico");
-		if (tecnico == null) {
-			throw new UsernameNotFoundException("tecnico nao encontrado");
-		}
-
-		return new CustomUserDetails(tecnico);
-
+		return new CustomUserDetails(user);
 
 	}
-
 }
 
