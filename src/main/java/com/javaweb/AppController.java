@@ -1,18 +1,30 @@
 package com.javaweb;
 
-import java.util.List;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.Optional;
+
+import com.javaweb.order.AtualizaCall;
 import com.javaweb.order.Orders;
 import com.javaweb.order.OrderRepo;
+import com.javaweb.order.UpdateOrder;
 import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
+
 
 @Controller
 public class AppController {
@@ -39,8 +51,13 @@ public class AppController {
 		return "index";
 	}
 
+	@GetMapping("/welcome")
+	public String viewPage() {
+		return "welcome";
+	}
 
-	@GetMapping("/register")
+
+	@GetMapping("/register") //registrar usuario
 
 	public String showSigUpForm(Model model ) {
 
@@ -49,7 +66,7 @@ public class AppController {
 		return "register";
 	}
 
-	@PostMapping("/processa_registro")
+	@PostMapping("/processa_registro")// processar e validar usuario
 	public String processRegistration(User user) {
 		try {
 			BCryptPasswordEncoder code = new BCryptPasswordEncoder();
@@ -87,14 +104,73 @@ public class AppController {
 		return "users";
 	}
 
+	@GetMapping("/orderteclist/{tecName}") // listar todos os chamados por tecnico
+	public String viewTec(@PathVariable String tecName, Model model) {
+		List<Orders> listOrder = repoOrder.findByTecnico(tecName);
+		model.addAttribute("listOrder", listOrder);
+		return "orderlist";
+	}
+
 
 	@GetMapping("/incidentes") //registrar novo incidente
 	public String showFormIncidentes(Model model) {
 		model.addAttribute("orders", new Orders());
-		List<User> listUsers = repo.findByRole("tec");
+		List<User> listUsers = repo.findByRole("tec");//listar tecnico para alocar no incidente
 		model.addAttribute("listTec", listUsers);
 		return "incidentes";
 	}
+              ////***** UPDATE CALL *****///////
+//	@PostMapping("/listorder")// grava o update
+//	public ResponseEntity<Object> editUser(@RequestBody @Valid AtualizaCall updateOrder, @PathVariable Long orderId) {
+//
+//		Orders order = repoOrder.findById(orderId);
+//
+//		if (order == null) {
+//			return ResponseEntity.notFound().build();
+//		}
+//
+//		if (updateOrder.getStatus() != null) {
+//			order.setStatus(updateOrder.getStatus());
+//		}
+//
+//		if (updateOrder.getDefeito() != null) {
+//			order.setDefeito(updateOrder.getDefeito());
+//		}
+//
+//		Orders updatedOrder = repoOrder.save(order);
+//		return ResponseEntity.ok(updatedOrder);
+//	}
+
+
+
+			  @PostMapping("/listorder") // grava o update
+			  public String editUser(@RequestBody @Valid AtualizaCall updateOrder, @PathVariable Long orderId, Model model) {
+
+				  Orders order = repoOrder.findById(orderId);
+
+				  if (order == null) {
+					  return "pgerror"; // ou redirecione para uma página de erro, se desejar
+				  }
+
+				  if (updateOrder.getStatus() != null) {
+					  order.setStatus(updateOrder.getStatus());
+				  }
+
+				  if (updateOrder.getDefeito() != null) {
+					  order.setDefeito(updateOrder.getDefeito());
+				  }
+
+				  Orders updatedOrder = repoOrder.save(order);
+
+				  // Adicione qualquer atributo ao model que você deseja usar na view de sucesso
+				  model.addAttribute("mensagem", "Chamado atualizado com sucesso!");
+
+				  // Retorne o nome da view de sucesso
+				  return "sucess";
+			  }
+
+
+
 
 	@PostMapping("/processa_incidente")
 	public String procesaIncidente(Orders orders) {
@@ -118,15 +194,66 @@ public class AppController {
 	}
 
 
-	@GetMapping("/listcall/{orderId}")
+	@GetMapping("/listcall/{orderId}")  //listar detalhe do incidente por id
 	public String viewOrderCall(@PathVariable Long orderId, Model model) {
 		Orders order = repoOrder.findById(orderId);
 		model.addAttribute("listCall", order);
-		return "orderCall";
+		return "orderCall";//chama listorder
 	}
 
 
+	// testes api  ////   ///////
 
+	@RestController
+	@RequestMapping("/api")
+	public class UserController {
 
+		@GetMapping("/userlist") //listar todos usuarios
+		public List<User> viewUsersList() {
+			List<User> listUsers = repo.findAll();
+			return listUsers;
+		}
 
+		@GetMapping("/orderlist") // listar todos os incidentes
+		public List<Orders> viewOrderList() {
+			List<Orders> orderapi = repoOrder.findAll();
+			return orderapi;
+		}
+		@GetMapping("/listcal/{orderId}") //listar apenas um incidente pelo id
+		@ResponseBody
+		public ResponseEntity<List<Orders>> viewOrderCall(@PathVariable long orderId) {
+			Optional<Orders> orderOptional = Optional.ofNullable(repoOrder.findById(orderId));
+
+			if (orderOptional.isPresent()) {
+				Orders order = orderOptional.get();
+				List<Orders> orderList = Collections.singletonList(order);
+				return ResponseEntity.ok(orderList);
+			} else {
+				return ResponseEntity.notFound().build();
+			}
+		}
+
+		@Autowired
+		private OrderRepo repoOrder;
+
+		@PutMapping("/updateOrder/{id}")
+		public ResponseEntity<Orders> updateOrder(@PathVariable Long id, @RequestBody Orders updatedOrder) {
+			Optional<Orders> existingOrderOptional = Optional.ofNullable(repoOrder.findById(id));
+
+			if (existingOrderOptional.isPresent()) {
+				Orders existingOrder = existingOrderOptional.get();
+
+				// Atualiza apenas os campos desejados
+				existingOrder.setStatus(updatedOrder.getStatus());
+				existingOrder.setDefeito(updatedOrder.getDefeito());
+
+				// Salva a ordem atualizada
+				Orders savedOrder = repoOrder.save(existingOrder);
+				return new ResponseEntity<>(savedOrder, HttpStatus.OK);
+			} else {
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+			}
+		}
+
+	}
 }

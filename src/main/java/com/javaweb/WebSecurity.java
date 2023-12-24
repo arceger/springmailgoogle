@@ -12,11 +12,30 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
+
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.addAllowedOrigin("http://localhost:4200");
+		configuration.addAllowedMethod("*");
+		configuration.addAllowedHeader("*");
+		configuration.setAllowCredentials(true);
+
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/api/**", configuration);
+
+		return source;
+	}
+
 	@SuppressWarnings("unused")
 	@Autowired
 	private DataSource dataSource;
@@ -50,17 +69,24 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-	
-		http.authorizeRequests()
-		.antMatchers("/orderlist").authenticated()
-		.anyRequest().permitAll()
-		.and()
-		.formLogin()
-		
-		//.loginPage("/login")
-	   // .loginProcessingUrl("/login")
-		.usernameParameter("email")
-		.defaultSuccessUrl("/orderlist")
-		.permitAll();
+		http
+				.cors().and().csrf().disable()
+				.authorizeRequests()
+				.antMatchers("/welcome").authenticated()
+				.antMatchers("/incidentes", "/userlist", "/register", "/orderlist").authenticated() // Rotas restritas
+				.anyRequest().permitAll()
+				.and()
+				.formLogin()
+				//.loginPage("/login")
+                //.loginProcessingUrl("/login")
+				.usernameParameter("email")
+				.defaultSuccessUrl("/welcome")
+				.permitAll()
+				.and()
+				.logout()
+				.logoutUrl("/logout")
+				.permitAll();
 	}
+
+
 }

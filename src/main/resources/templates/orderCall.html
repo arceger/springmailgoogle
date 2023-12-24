@@ -2,23 +2,22 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="pr-BR">
 
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="">
   <title>Detalhe do Incidente</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
-
 </head>
-
 <body class="text-center">
 
   <main class="form-signin">
 
-    <form th:each="order: ${listCall}">
+    <form th:each="order: ${listCall}" th:action="@{/listorder}" method="POST">
 
-      <h1 class="h3 mb-3 fw-normal">Detalhe Incidente.</h1>
+      <a th:href="@{/welcome}" class="btn btn-outline-secondary">Home</a>
+      <a th:href="@{/logout}" class="btn btn-outline-secondary">Sair</a>
+      <h1 class="h3 mb-3 fw-normal mx-auto">Detalhe do incidente:</h1>
 
       <div class="row">
 
@@ -97,7 +96,7 @@
         </div>
         <div class="col-md-12">
           <div class="form-floating">
-            <input type="text" class="form-control" id="defeito" th:value="${order.defeito}" maxlength="1000" readonly>
+            <input type="text" class="form-control" id="defeito" th:value="${order.defeito}" maxlength="1000" readonly name="_method" value="put">
             <label for="contato">Defeito:</label>
           </div>
         </div>
@@ -114,8 +113,7 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-floating">
-              <!--input type="text" class="form-control" id="status" th:value="${order.status}" maxlength="25"-->
-              <select class="form-control" id="status" th:value="${order.status}" required>
+              <select class="form-control" id="status" th:value="${order.status}" required name="_method" value="put">
                 <option value="">Selecione</option>
                 <option value="OPEN">OPEN</option>
                 <option value="ALOCADO">ALOCADO</option>
@@ -137,21 +135,14 @@
         </div>
         <script>
           function concatenateFields() {
-            // Obtenha os valores dos campos
             var defeitoValue = document.getElementById('defeito').value;
             var providenciasValue = document.getElementById('providencias').value;
-
-            // Concatene os valores
             var concatenatedValue = defeitoValue + ' ' + providenciasValue;
-
-            // Atualize o valor do campo defeito
             document.getElementById('defeito').value = concatenatedValue;
           }
         </script>
       </div>
     </form>
   </main>
-
 </body>
-
 </html>
