@@ -25,7 +25,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.addAllowedOrigin("http://localhost:4200");
+		configuration.addAllowedOrigin("https://ordersrvdocker.onrender.com");
 		configuration.addAllowedMethod("*");
 		configuration.addAllowedHeader("*");
 		configuration.setAllowCredentials(true);
