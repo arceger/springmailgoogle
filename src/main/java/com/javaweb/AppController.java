@@ -203,7 +203,7 @@ public class AppController {
 
 
 	// testes api  ////   ///////
-	//@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.PUT})
+	@CrossOrigin(origins = "https://mobile-ount.onrender.com", methods = {RequestMethod.GET, RequestMethod.PUT})
 	@RestController
 	@RequestMapping("/api")
 	public class UserController {
@@ -213,7 +213,7 @@ public class AppController {
 			List<User> listUsers = repo.findAll();
 			return listUsers;
 		}
-		//@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.PUT})
+		@CrossOrigin(origins = "https://mobile-ount.onrender.com", methods = {RequestMethod.GET, RequestMethod.PUT})
 		@GetMapping("/orderlist") // listar todos os incidentes
 		public List<Orders> viewOrderList() {
 			List<Orders> orderapi = repoOrder.findAll();
