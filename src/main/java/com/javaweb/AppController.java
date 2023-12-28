@@ -213,12 +213,13 @@ public class AppController {
 			List<User> listUsers = repo.findAll();
 			return listUsers;
 		}
-
+		@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.PUT})
 		@GetMapping("/orderlist") // listar todos os incidentes
 		public List<Orders> viewOrderList() {
 			List<Orders> orderapi = repoOrder.findAll();
 			return orderapi;
 		}
+		@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.PUT})
 		@GetMapping("/listcal/{orderId}") //listar apenas um incidente pelo id
 		@ResponseBody
 		public ResponseEntity<List<Orders>> viewOrderCall(@PathVariable long orderId) {
