@@ -203,7 +203,7 @@ public class AppController {
 
 
 	// testes api  ////   ///////
-
+	@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.PUT})
 	@RestController
 	@RequestMapping("/api")
 	public class UserController {
