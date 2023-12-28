@@ -25,7 +25,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	@Bean
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.addAllowedOrigin("*");
+		configuration.addAllowedOrigin("https://mobile-ount.onrender.com");
 		configuration.addAllowedMethod("GET");
 		configuration.addAllowedMethod("PUT");
 		configuration.addAllowedHeader("*");
