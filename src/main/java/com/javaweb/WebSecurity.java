@@ -29,7 +29,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		configuration.addAllowedMethod("GET");
 		configuration.addAllowedMethod("PUT");
 		configuration.addAllowedHeader("Content-Type");
-		configuration.setAllowCredentials(true);
+		//configuration.setAllowCredentials(true);
 
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/api/**", configuration);
