@@ -26,8 +26,9 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	public CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
 		configuration.addAllowedOrigin("https://mobile-ount.onrender.com");
-		configuration.addAllowedMethod("*");
-		configuration.addAllowedHeader("*");
+		configuration.addAllowedMethod("GET");
+		configuration.addAllowedMethod("PUT");
+		configuration.addAllowedHeader("Content-Type");
 		configuration.setAllowCredentials(true);
 
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
