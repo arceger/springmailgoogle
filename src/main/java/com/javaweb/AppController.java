@@ -17,6 +17,10 @@ import org.springframework.context.event.EventListener;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -36,9 +40,11 @@ public class AppController {
 
 	@Autowired
 	private OrderRepo repoOrder;
+	@Autowired
+	private CustomUserDetailsService userDetailsService;
 
 	@Autowired
-	private EmailControl emailSender;
+//	private EmailControl emailSender;
 
     public AppController(CustomUserDetailsService customUserDetailsService) {
         this.customUserDetailsService = customUserDetailsService;
@@ -73,6 +79,11 @@ public class AppController {
 			String encoPass = code.encode(user.getPassword());
 			user.setPassword(encoPass);
 			repo.save(user);
+
+//			String usrMail = user.getEmail();
+//			String usrName = user.getFirstName();
+//			emailSender.sendMail(usrMail, "Sejas bem Vindo "+usrName, "Confirmaçao de Registro Spring Boot");
+
 			return "sucess";
 		} catch (DataIntegrityViolationException e) {
 			if (e.getCause() instanceof ConstraintViolationException) {
@@ -119,29 +130,6 @@ public class AppController {
 		model.addAttribute("listTec", listUsers);
 		return "incidentes";
 	}
-              ////***** UPDATE CALL *****///////
-//	@PostMapping("/listorder")// grava o update
-//	public ResponseEntity<Object> editUser(@RequestBody @Valid AtualizaCall updateOrder, @PathVariable Long orderId) {
-//
-//		Orders order = repoOrder.findById(orderId);
-//
-//		if (order == null) {
-//			return ResponseEntity.notFound().build();
-//		}
-//
-//		if (updateOrder.getStatus() != null) {
-//			order.setStatus(updateOrder.getStatus());
-//		}
-//
-//		if (updateOrder.getDefeito() != null) {
-//			order.setDefeito(updateOrder.getDefeito());
-//		}
-//
-//		Orders updatedOrder = repoOrder.save(order);
-//		return ResponseEntity.ok(updatedOrder);
-//	}
-
-
 
 			  @PostMapping("/listorder") // grava o update
 			  public String editUser(@RequestBody @Valid AtualizaCall updateOrder, @PathVariable Long orderId, Model model) {
@@ -202,10 +190,19 @@ public class AppController {
 	}
 
 
-	// testes api  ////   ///////
+	// **** api  Angular ////   ///////
 	@RestController
 	@RequestMapping("/api")
+	@PreAuthorize("isAuthenticated()")
 	public class UserController {
+		@Autowired
+		private CustomUserDetailsService userDetailsService;
+		@PostMapping("/login")
+		public ResponseEntity<?> loginEmployee(@RequestBody User user)
+		{
+			LoginMesage loginResponse = customUserDetailsService.loginEmployee(user);
+			return ResponseEntity.ok(loginResponse);
+		}
 
 		@GetMapping("/userlist") //listar todos usuarios
 		public List<User> viewUsersList() {

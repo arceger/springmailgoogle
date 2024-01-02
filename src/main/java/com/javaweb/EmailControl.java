@@ -1,12 +1,12 @@
-package com.javaweb;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.web.bind.annotation.RestController;
-
-@RestController
-
-public class EmailControl {
+//package com.javaweb;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.mail.SimpleMailMessage;
+//import org.springframework.mail.javamail.JavaMailSender;
+//import org.springframework.web.bind.annotation.RestController;
+//
+//@RestController
+//
+//public class EmailControl {
 //	   @Autowired private JavaMailSender mailSender;
 //
 //	    public String sendMail(String toEmail,
@@ -31,5 +31,5 @@ public class EmailControl {
 //	            return "Erro ao enviar email.";
 //	        }
 //	    }
-
-}
+//
+//}
