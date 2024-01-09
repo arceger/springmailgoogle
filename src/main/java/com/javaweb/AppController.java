@@ -1,14 +1,11 @@
 package com.javaweb;
-
-
+import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import com.javaweb.order.AtualizaCall;
-import com.javaweb.order.Orders;
-import com.javaweb.order.OrderRepo;
-import com.javaweb.order.UpdateOrder;
+import com.javaweb.order.*;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,53 +22,37 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
-
-
-
 @Controller
 public class AppController {
-
 	private final CustomUserDetailsService customUserDetailsService;
-
 	@Autowired
 	private UserRepository repo;
-
 	@Autowired
 	private OrderRepo repoOrder;
 	@Autowired
 	private CustomUserDetailsService userDetailsService;
-
 	@Autowired
 //	private EmailControl emailSender;
-
     public AppController(CustomUserDetailsService customUserDetailsService) {
         this.customUserDetailsService = customUserDetailsService;
     }
-
     @EventListener(ApplicationReadyEvent.class)
-
 	@GetMapping("")
 	public String viewHomePage() {
 		return "index";
 	}
-
 	@GetMapping("/welcome")
 	public String viewPage() {
 		return "welcome";
 	}
-
-
 	@GetMapping("/register") //registrar usuario
-
 	public String showSigUpForm(Model model ) {
-
 		model.addAttribute("user", new User());
-
 		return "register";
 	}
-
 	@PostMapping("/processa_registro")// processar e validar usuario
 	public String processRegistration(User user) {
 		try {
@@ -79,11 +60,9 @@ public class AppController {
 			String encoPass = code.encode(user.getPassword());
 			user.setPassword(encoPass);
 			repo.save(user);
-
 //			String usrMail = user.getEmail();
 //			String usrName = user.getFirstName();
 //			emailSender.sendMail(usrMail, "Sejas bem Vindo "+usrName, "Confirmaçao de Registro Spring Boot");
-
 			return "sucess";
 		} catch (DataIntegrityViolationException e) {
 			if (e.getCause() instanceof ConstraintViolationException) {
@@ -100,7 +79,6 @@ public class AppController {
 			}
 		}
 	}
-
 	@GetMapping("/userlist")  // listar todos os usuarios
 	public String viewUsersList(Model model) {
 		List<User> listUsers = repo.findAll();
@@ -158,10 +136,13 @@ public class AppController {
 			  }
 
 
-
-
 	@PostMapping("/processa_incidente")
-	public String procesaIncidente(Orders orders) {
+	public String procesaIncidente(Orders orders) throws IOException {
+
+		orders.setAbertura(LocalDateTime.now());
+//		OrderPhoto orderPhoto = new OrderPhoto();
+//		orderPhoto.setOrder(orders);
+//		orderPhoto.setPhoto(photo.getBytes()); // Assuming photo is stored as byte array
 
 		repoOrder.save(orders);
 
@@ -252,4 +233,5 @@ public class AppController {
 		}
 
 	}
+
 }

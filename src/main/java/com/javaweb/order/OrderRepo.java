@@ -19,6 +19,4 @@ public interface OrderRepo extends JpaRepository<Orders,String> {
     @Query("SELECT o FROM Orders o WHERE o.tecnico = :tecnico")
     List<Orders> findByTecnico(@Param("tecnico") String tecnicoName);
 
-
-
 }

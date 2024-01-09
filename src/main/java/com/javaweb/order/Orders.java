@@ -5,6 +5,9 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table
@@ -14,10 +17,17 @@ public class Orders {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column
     private LocalDateTime abertura;
+    @PrePersist
+    public void prePersist() {
+        this.abertura = LocalDateTime.now();
+    }
+
     @Column (nullable = true, length=100)
     private String tecnico;
+
 
     @Column (nullable = false, length=70)
     private String contato;
@@ -47,4 +57,8 @@ public class Orders {
     @Column (nullable = false, length=50)
     private String status;
 
+//    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<OrderPhoto> photos = new ArrayList<>();
 }
+
+
